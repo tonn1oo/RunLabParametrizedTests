@@ -1,13 +1,20 @@
 package runLab;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
+import org.openqa.selenium.WebDriver;
 import runLab.wrapper.MenuItem;
+
 import java.util.stream.Stream;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverConditions.url;
 
 public class SearchTest {
 
@@ -23,8 +30,9 @@ public class SearchTest {
         $(".search-go").submit();
 
         $$(".items").find(Condition.text(testData))
-                .shouldBe(Condition.visible);
+                .shouldBe(visible);
     }
+
     @ValueSource(strings = {
             "14 Апреля",
             "07 Апреля"
@@ -37,6 +45,7 @@ public class SearchTest {
         $(".index-articles-block").$(byText(testData)).click();
 
     }
+
     @CsvSource({
             "VaporFly, Ekiden",
             "Pegasus, Trail"
@@ -49,8 +58,9 @@ public class SearchTest {
         $(".search-go").submit();
 
         $$(".product-name").find(Condition.text(result))
-                .shouldBe(Condition.visible);
+                .shouldBe(visible);
     }
+
     @EnumSource(MenuItem.class)
     @ParameterizedTest(name = "Search Menu Item in the store runLab ")
     void runLabMenuSearchTest(MenuItem testData) {
@@ -62,8 +72,8 @@ public class SearchTest {
 
     static Stream<Arguments> methodSourceTest() {
         return Stream.of(
-                Arguments.of("Sale"),
-                Arguments.of("Отзывы")
+                Arguments.of("Sale", "Акции и скидки"),
+                Arguments.of("Отзывы", "Спасибо, что выбрали")
         );
     }
 
@@ -74,7 +84,10 @@ public class SearchTest {
         $(".icn-menu-menu8").hover();
         $(".dropdown").$(byText(testData)).click();
 
-    }
+        $$("#site-container").find(Condition.text(testData)).shouldBe(visible);
+        $$("#site-container").find(Condition.text(testData)).shouldBe(visible);
+        }
+
 
 }
 
