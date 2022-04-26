@@ -1,20 +1,15 @@
 package runLab;
 
-import com.codeborne.selenide.CollectionCondition;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
-import org.openqa.selenium.WebDriver;
 import runLab.wrapper.MenuItem;
-
 import java.util.stream.Stream;
-
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
 
 public class SearchTest {
 
@@ -86,7 +81,7 @@ public class SearchTest {
 
         $$("#site-container").find(Condition.text(testData)).shouldBe(visible);
         $$("#site-container").find(Condition.text(testData)).shouldBe(visible);
-        }
+    }
 
 
 }
