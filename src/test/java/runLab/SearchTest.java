@@ -6,7 +6,9 @@ import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 import runLab.wrapper.MenuItem;
+
 import java.util.stream.Stream;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -26,19 +28,6 @@ public class SearchTest {
 
         $$(".items").find(Condition.text(testData))
                 .shouldBe(visible);
-    }
-
-    @ValueSource(strings = {
-            "14 Апреля",
-            "07 Апреля"
-    })
-    @ParameterizedTest(name = "Search in the store runLab {0}")
-    void runLabNewsTest(String testData) {
-
-        Selenide.open("https://www.runlab.ru");
-        $(".index-articles-block").$(byText(testData)).click();
-        $(".index-articles-block").$(byText(testData)).click();
-
     }
 
     @CsvSource({
@@ -61,7 +50,7 @@ public class SearchTest {
     void runLabMenuSearchTest(MenuItem testData) {
 
         Selenide.open("https://www.runlab.ru");
-        $$(".hd-menu").find(Condition.text(testData.rusName)).click();
+        $$(".hd-menu-wrapper").find(Condition.text(testData.rusName)).click();
 
     }
 
